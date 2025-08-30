@@ -56,7 +56,7 @@ DEPLOYMENTDESCRIPTION = null
           APIKEY = properties['siteApiKey']
           PACKAGEFILENAME = properties['packageFileName']
           def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
-          jenkinsUtils.inspectPackage("${APPLICATIONNAME}.test.properties")
+          jenkinsUtils.inspectPackage("AppianPluginExample-1.test.properties")
         }
       }
     }
@@ -71,7 +71,7 @@ DEPLOYMENTDESCRIPTION = null
           APIKEY = properties['siteApiKey']
           PACKAGEFILENAME = properties['packageFileName']
           def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
-          jenkinsUtils.createDeployment("${APPLICATIONNAME}.test.properties")
+          jenkinsUtils.createDeployment("AppianPluginExample-1.test.properties")
           
 
 
@@ -130,7 +130,7 @@ DEPLOYMENTDESCRIPTION = null
           APIKEY = properties['siteApiKey']
           PACKAGEFILENAME = properties['packageFileName']
           def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
-          jenkinsUtils.inspectPackage("${APPLICATIONNAME}.stag.properties")
+          jenkinsUtils.inspectPackage("AppianPluginExample-1.stag.properties")
         }
       }
     }
@@ -145,7 +145,7 @@ DEPLOYMENTDESCRIPTION = null
           APIKEY = properties['siteApiKey']
           PACKAGEFILENAME = properties['packageFileName']
           def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
-          jenkinsUtils.createDeployment("${APPLICATIONNAME}.stag.properties")
+          jenkinsUtils.createDeployment("AppianPluginExample-1.stag.properties")
           
 
 
@@ -198,7 +198,7 @@ DEPLOYMENTDESCRIPTION = null
       steps {
         script {
           def githubUtils = load "groovy/GitHubUtils.groovy"
-          githubUtils.releaseApplication("RELEASE", "${APPLICATIONNAME}.properties")
+          githubUtils.releaseApplication("RELEASE", "AppianPluginExample-1.properties")
         }
       }
     }
@@ -217,7 +217,7 @@ DEPLOYMENTDESCRIPTION = null
           APIKEY = properties['siteApiKey']
           PACKAGEFILENAME = properties['packageFileName']
           def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
-          jenkinsUtils.inspectPackage("${APPLICATIONNAME}.prod.properties")
+          jenkinsUtils.inspectPackage("AppianPluginExample-1.prod.properties")
         }
       }
     }
@@ -232,7 +232,7 @@ DEPLOYMENTDESCRIPTION = null
           APIKEY = properties['siteApiKey']
           PACKAGEFILENAME = properties['packageFileName']
           def jenkinsUtils = load "groovy/JenkinsUtils.groovy"
-          jenkinsUtils.createDeployment("${APPLICATIONNAME}.prod.properties")
+          jenkinsUtils.createDeployment("AppianPluginExample-1.prod.properties")
           
 
 

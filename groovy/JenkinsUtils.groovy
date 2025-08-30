@@ -41,7 +41,7 @@ void buildPackage(versionPropertyFile) {
   dir("adm/appian-version-client") {
     setProperty("version-manager.properties", "vcUsername", "${REPOUSERNAME}")
     setProperty("version-manager.properties", "vcPassword", "${REPOPASSWORD}")
-    setProperty("version-manager.properties", "appianObjectsRepoPath", "appian/applications/${APPLICATIONNAME}")
+    setProperty("version-manager.properties", "appianObjectsRepoPath", "appian/applications/AppianPluginExample-1")
     sh "./version-application.sh -package_path ./app-package.zip -local_repo_path ./local-repo"
     sh "unzip ./app-package.zip"
     sh "mv application* ../deploy-package.zip"
@@ -55,9 +55,9 @@ void buildPackage(versionPropertyFile) {
 void inspectPackage(customProperties) {
   inspectionUrl = SITEBASEURL +"/deployment-management/v1/inspections"
   String response = null
-  if (fileExists("appian/properties/${APPLICATIONNAME}/" + customProperties)) {
+  if (fileExists("appian/properties/AppianPluginExample-1/" + customProperties)) {
   	println "Properties Exist"
-	response=sh( script:"curl --location  --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"ICF=@\"appian/properties/${APPLICATIONNAME}/${customProperties}\"\" --form \"json={\"packageFileName\":\"finalPackage.zip\",\"customizationFileName\":\"$customProperties\"}\"", returnStdout: true).trim()
+	response=sh( script:"curl --location  --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"ICF=@\"appian/properties/AppianPluginExample-1/${customProperties}\"\" --form \"json={\"packageFileName\":\"finalPackage.zip\",\"customizationFileName\":\"$customProperties\"}\"", returnStdout: true).trim()
   } else{
   	response=sh( script:"curl --location  --request POST \"$inspectionUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"json={\"packageFileName\":\"finalPackage.zip\"}\"", returnStdout: true).trim()
   }
@@ -92,9 +92,9 @@ void inspectPackage(customProperties) {
 
 void createDeployment(customProperties) {
   deploymentUrl = SITEBASEURL + "/deployment-management/v1/deployments"
-  if (fileExists("appian/properties/${APPLICATIONNAME}/" + customProperties)) {
+  if (fileExists("appian/properties/AppianPluginExample-1/" + customProperties)) {
     print "fileExists"
-	response=sh( script:"curl --silent --location  --request POST \'$deploymentUrl\' --header \'Appian-API-Key: $APIKEY\' --form \'zipFile=@\"adm/finalPackage.zip\"\' --form \'ICF=@\"appian/properties/${APPLICATIONNAME}/${customProperties}\"\' --form \'json={\"name\":\"newDeploymentUnix\",\"packageFileName\":\"finalPackage.zip\",\"customizationFileName\":\"$customProperties\"}\'", returnStdout: true).trim()
+	response=sh( script:"curl --silent --location  --request POST \'$deploymentUrl\' --header \'Appian-API-Key: $APIKEY\' --form \'zipFile=@\"adm/finalPackage.zip\"\' --form \'ICF=@\"appian/properties/AppianPluginExample-1/${customProperties}\"\' --form \'json={\"name\":\"newDeploymentUnix\",\"packageFileName\":\"finalPackage.zip\",\"customizationFileName\":\"$customProperties\"}\'", returnStdout: true).trim()
   } else{
    response=sh( script:"curl --silent  --location  --request POST \"$deploymentUrl\" --header \"Appian-API-Key: $APIKEY\" --form \"zipFile=@\"adm/finalPackage.zip\"\" --form \"json={\"packagFileName\":\"finalPackage.zip\",\"name\":\"$DEPLOYMENTNAME\"}\"", returnStdout: true).trim()
 
